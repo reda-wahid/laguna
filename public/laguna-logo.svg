@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="100%" height="100%" fill="none" aria-label="LAGUNA DUBAI Official Logo">
+  <defs>
+    <!-- Warm Champagne Gold Gradient matching the official uploaded logo -->
+    <linearGradient id="lagunaGoldMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5db" />
+      <stop offset="25%" stop-color="#f5e1b5" />
+      <stop offset="60%" stop-color="#dfbe6f" />
+      <stop offset="100%" stop-color="#c9a24b" />
+    </linearGradient>
+
+    <linearGradient id="lagunaGoldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#faedd0" />
+      <stop offset="70%" stop-color="#dfbe6f" />
+      <stop offset="100%" stop-color="#b8933b" />
+    </linearGradient>
+
+    <linearGradient id="lagunaGoldSoft" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#f5e0aa" />
+      <stop offset="100%" stop-color="#dfbe6f" />
+    </linearGradient>
+  </defs>
+
+  <!-- BURJ KHALIFA TOWER (Architectural Stepped Spire in Background) -->
+  <g id="burj-khalifa" fill="url(#lagunaGoldMain)">
+    <!-- Needle Tip & Spire -->
+    <polygon points="76,14 77.2,34 74.8,34" />
+    <rect x="75" y="34" width="2" height="14" rx="0.5" />
+    <rect x="73.8" y="48" width="4.4" height="12" rx="0.5" />
+
+    <!-- Upper Setbacks -->
+    <path d="M72,60 L72,78 L80,78 L80,60 Z" />
+    <path d="M68,78 L68,98 L84,98 L84,78 Z" />
+
+    <!-- Mid Setbacks -->
+    <path d="M64,98 L64,120 L87,120 L87,98 Z" />
+    <path d="M60,120 L60,144 L90,144 L90,120 Z" />
+
+    <!-- Lower Setbacks (Rising behind yacht) -->
+    <path d="M54,144 L54,170 L82,170 L82,144 Z" />
+
+    <!-- Facet Shadow / Fluting Lines -->
+    <line x1="76" y1="34" x2="76" y2="170" stroke="#030d0a" stroke-width="0.75" opacity="0.4" />
+    <line x1="72" y1="60" x2="72" y2="170" stroke="#030d0a" stroke-width="0.65" opacity="0.3" />
+    <line x1="80" y1="60" x2="80" y2="114" stroke="#030d0a" stroke-width="0.65" opacity="0.3" />
+    <line x1="68" y1="78" x2="68" y2="170" stroke="#030d0a" stroke-width="0.65" opacity="0.3" />
+    <line x1="64" y1="98" x2="64" y2="170" stroke="#030d0a" stroke-width="0.65" opacity="0.25" />
+  </g>
+
+  <!-- LUXURY MOTOR YACHT (Sleek Modern Cruiser in Foreground) -->
+  <g id="luxury-yacht">
+    <!-- Superstructure / Flying Bridge & Cabin Roof -->
+    <path
+      d="M86,118 L98,105 L124,105 C132,105 142,109 148,116 L154,121 L132,121 Z"
+      fill="url(#lagunaGoldHighlight)"
+    />
+    <!-- Radar Mast / Aerial -->
+    <path d="M102,105 L103.5,96 L105.5,96 L107,105 Z" fill="url(#lagunaGoldMain)" />
+
+    <!-- Tinted Cabin Windows -->
+    <polygon points="106,113 122,113 118,119 104,119" fill="#030d0a" />
+    <polygon points="124,113 136,113 133,119 121,119" fill="#030d0a" />
+
+    <!-- Yacht Hull (Aerodynamic Bow & Chined Sheerline) -->
+    <path
+      d="M68,128 L152,128 C160,128 174,124 180,118 C173,130 159,141 138,144 L76,144 C70,144 67,134 68,128 Z"
+      fill="url(#lagunaGoldMain)"
+    />
+
+    <!-- Three Luxury Portholes -->
+    <circle cx="118" cy="135" r="2.2" fill="#030d0a" />
+    <circle cx="132" cy="134.5" r="2.2" fill="#030d0a" />
+    <circle cx="146" cy="133.5" r="2.2" fill="#030d0a" />
+
+    <!-- Elegant Hull Deck Line -->
+    <path d="M78,127.5 L164,127.5" stroke="url(#lagunaGoldHighlight)" stroke-width="1.2" stroke-linecap="round" />
+  </g>
+
+  <!-- DUAL MARINE WAVES (Gracefully Flowing Beneath) -->
+  <g id="ocean-waves">
+    <!-- Upper Flowing Wave Ribbon -->
+    <path
+      d="M24,150 C54,141 84,152 116,149 C148,146 174,136 188,126 C173,142 142,157 110,157 C78,157 48,152 24,150 Z"
+      fill="url(#lagunaGoldHighlight)"
+    />
+
+    <!-- Lower Flowing Wave Ribbon -->
+    <path
+      d="M34,157 C62,150 92,160 124,156 C150,153 172,146 182,139 C168,152 140,165 114,165 C82,165 52,159 34,157 Z"
+      fill="url(#lagunaGoldMain)"
+    />
+  </g>
+
+  <!-- OFFICIAL TYPOGRAPHY: LAGUNA DUBAI (Matching Uploaded Artwork) -->
+  <g id="brand-wordmark">
+    <text
+      x="100"
+      y="202"
+      text-anchor="middle"
+      fill="url(#lagunaGoldHighlight)"
+      font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif"
+      font-size="22"
+      font-weight="700"
+      letter-spacing="4.5"
+    >
+      LAGUNA DUBAI
+    </text>
+    <text
+      x="100"
+      y="222"
+      text-anchor="middle"
+      fill="#dfbe6f"
+      font-family="'Cairo', system-ui, sans-serif"
+      font-size="10.5"
+      font-weight="600"
+      letter-spacing="3"
+    >
+      مطعم وكافيه
+    </text>
+  </g>
+</svg>
