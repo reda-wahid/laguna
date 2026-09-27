@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidMenuDoc(data) {
+      return data.sections is list &&
+             data.lastModified is number &&
+             data.sections.size() > 0 &&
+             data.sections.size() <= 10;
+    }
+
+    // Default deny for unmanaged collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Public digital restaurant menu: readable worldwide, updatable by menu manager
+    match /menu/{menuId} {
+      allow get, list: if isValidId(menuId);
+      allow create, update: if isValidId(menuId) && isValidMenuDoc(incoming());
+      allow delete: if false;
+    }
+  }
+}

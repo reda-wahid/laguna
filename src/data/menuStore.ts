@@ -1,4 +1,6 @@
 import { MENU_DATA as INITIAL_MENU_DATA, MainSection } from '../data/menuData';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '../firebase/config';
 
 const STORAGE_KEY = 'laguna_menu_data_v6';
 const ADMIN_PIN_KEY = 'laguna_admin_auth_pin';
@@ -139,7 +141,23 @@ export function saveStoredMenuData(data: MainSection[]) {
       });
     }
 
-    // 3. Permanent server persistence with security header
+    // 3. Permanent Cloud Firestore persistence across all devices & regions
+    try {
+      const now = Date.now();
+      lastServerTimestamp = now;
+      const menuDocRef = doc(db, 'menu', 'main');
+      setDoc(menuDocRef, {
+        sections: data,
+        lastModified: now,
+        updatedBy: 'admin',
+      }, { merge: true }).catch((firestoreErr) => {
+        handleFirestoreError(firestoreErr, OperationType.WRITE, 'menu/main');
+      });
+    } catch (err) {
+      console.warn('Firestore write init note:', err);
+    }
+
+    // 4. Permanent server persistence with security header
     fetch('/api/menu', {
       method: 'POST',
       headers: {
@@ -156,7 +174,7 @@ export function saveStoredMenuData(data: MainSection[]) {
       })
       .then((resData) => {
         if (resData.lastModified) {
-          lastServerTimestamp = resData.lastModified;
+          lastServerTimestamp = Math.max(lastServerTimestamp, resData.lastModified);
         }
       })
       .catch((err) => {
@@ -164,6 +182,59 @@ export function saveStoredMenuData(data: MainSection[]) {
       });
   } catch (err) {
     console.error('Error saving menu data:', err);
+  }
+}
+
+/**
+ * Setup Real-time Firebase Cloud Firestore stream
+ * Ensures any edit on any phone/device propagates instantly worldwide to all open menus
+ */
+function setupFirestoreRealtime() {
+  if (typeof window === 'undefined') return;
+
+  try {
+    const menuDocRef = doc(db, 'menu', 'main');
+    onSnapshot(menuDocRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const docData = snapshot.data();
+        if (docData && Array.isArray(docData.sections) && docData.sections.length > 0) {
+          const firestoreTimestamp = docData.lastModified || Date.now();
+          if (firestoreTimestamp >= lastServerTimestamp) {
+            lastServerTimestamp = firestoreTimestamp;
+            cachedMenuData = docData.sections;
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(docData.sections));
+            } catch {
+              // ignore
+            }
+            notifyLocalUpdate(docData.sections);
+          }
+        }
+      } else {
+        // First-time seed into Cloud Firestore so it is stored permanently in the cloud
+        const local = localStorage.getItem(STORAGE_KEY);
+        let initialData = INITIAL_MENU_DATA;
+        if (local) {
+          try {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed) && parsed.length > 0) initialData = parsed;
+          } catch {
+            // ignore
+          }
+        }
+        setDoc(menuDocRef, {
+          sections: initialData,
+          lastModified: Date.now(),
+          updatedBy: 'bootstrap',
+        }).catch((seedErr) => {
+          handleFirestoreError(seedErr, OperationType.WRITE, 'menu/main');
+        });
+      }
+    }, (error) => {
+      handleFirestoreError(error, OperationType.GET, 'menu/main');
+    });
+  } catch (err) {
+    console.warn('Firestore subscription note:', err);
   }
 }
 
@@ -220,7 +291,10 @@ function setupRealtimeSSE() {
  * Start listeners and background synchronization on client load
  */
 if (typeof window !== 'undefined') {
-  // 1. Initialize Real-Time SSE Stream
+  // 1. Initialize Real-Time Firebase Cloud Firestore Stream
+  setupFirestoreRealtime();
+
+  // 2. Initialize Real-Time SSE Stream
   setupRealtimeSSE();
 
   // 2. Storage event listener (fires in other tabs when localStorage changes)

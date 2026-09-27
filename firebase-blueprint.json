@@ -1,0 +1,30 @@
+{
+  "entities": {
+    "MenuData": {
+      "title": "MenuData",
+      "description": "Entire persistent menu catalog structure with sections, categories and items",
+      "type": "object",
+      "properties": {
+        "sections": {
+          "type": "array",
+          "description": "Array of main sections (food and drinks)"
+        },
+        "lastModified": {
+          "type": "number",
+          "description": "Timestamp of the last modification"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "Identifier of the modifier or admin device"
+        }
+      },
+      "required": ["sections", "lastModified"]
+    }
+  },
+  "firestore": {
+    "/menu/{menuId}": {
+      "schema": "MenuData",
+      "description": "Central persistent menu document containing all active menu items and pricing"
+    }
+  }
+}

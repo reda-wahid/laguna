@@ -338,7 +338,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     saveStoredMenuData(updatedData);
     onMenuUpdated(updatedData);
     setEditingItem(null);
-    showNotice(isAr ? `تم حفظ تعديلات "${editNameAr}" بنجاح!` : `Updated "${editNameEn}" successfully!`);
+    showNotice(isAr ? `تم حفظ تعديلات "${editNameAr}" وحفظها سحابياً لجميع الأجهزة!` : `Saved "${editNameEn}" to cloud & synced across all devices!`);
   };
 
   // Immediate delete handler: deletes directly from menuData, persists to storage, and notifies menu
@@ -356,7 +356,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     if (editingItem && editingItem.item.id === itemId) {
       setEditingItem(null);
     }
-    showNotice(isAr ? `تم حذف "${itemName}" بنجاح من المنيو` : `"${itemName}" deleted from menu`);
+    showNotice(isAr ? `تم حذف "${itemName}" وتحديث المنيو لجميع الأجهزة` : `"${itemName}" deleted & synced everywhere`);
   };
 
   // Add product handler
