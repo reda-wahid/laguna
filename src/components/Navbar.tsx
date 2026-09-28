@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           aria-label={isAr ? RESTAURANT_INFO.name_ar : RESTAURANT_INFO.name_en}
           title={isAr ? 'العودة لأعلى الصفحة' : 'Scroll to top'}
         >
-          <LagunaLogo variant="navbar" isAr={isAr} />
+          <img src="./laguna-logo.svg" className="w-12 p-2 border-b border-[#c9a24b]/20"/>
         </a>
 
         {/* Action Cluster: Categories Drawer, Search & Language */}

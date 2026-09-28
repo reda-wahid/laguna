@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import {
   UtensilsCrossed,
@@ -6,8 +6,6 @@ import {
   ChevronDown,
   Sparkles,
   MapPin,
-  Clock,
-  Phone,
   Compass,
   Award,
 } from 'lucide-react';
@@ -33,7 +31,6 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const isAr = lang === 'ar';
   const shouldReduceMotion = useReducedMotion();
-  const [showVenueInfo, setShowVenueInfo] = useState<boolean>(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,7 +77,8 @@ export const Hero: React.FC<HeroProps> = ({
         >
           {/* Majestic Laguna Dubai Official Emblem */}
           <motion.div variants={itemVariants}>
-            <LagunaLogo variant="hero" isAr={isAr} />
+           
+             <img src="./favicon.svg" className="w-32 p-2 border-b border-[#c9a24b]/20 rounded-xl"/>
           </motion.div>
 
           {/* Luxury Location & Atmosphere Kicker */}
@@ -189,51 +187,6 @@ export const Hero: React.FC<HeroProps> = ({
                 <span>{isAr ? `المشروبات (${drinksCount})` : `Drinks (${drinksCount})`}</span>
               </motion.button>
             </div>
-          </motion.div>
-
-          {/* Quick Details Trigger */}
-          <motion.div variants={itemVariants} className="mt-3">
-            <button
-              type="button"
-              onClick={() => setShowVenueInfo((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 text-xs text-[#dfbe6f] hover:text-[#f7f4ea] transition-colors underline-offset-4 hover:underline cursor-pointer"
-            >
-              <Clock size={13} />
-              <span>{isAr ? (showVenueInfo ? 'إخفاء تفاصيل المكان' : 'مواعيد العمل والعنوان') : (showVenueInfo ? 'Hide venue details' : 'Opening Hours & Location')}</span>
-            </button>
-
-            {showVenueInfo && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-3 p-4 rounded-2xl bg-[#071d16]/95 border border-[#c9a24b]/30 text-xs text-[#d0dfd8] max-w-md mx-auto text-start shadow-xl backdrop-blur-md"
-              >
-                <div className="flex items-start gap-2.5 mb-2.5">
-                  <MapPin size={16} className="text-[#c9a24b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#f7f4ea] block">{isAr ? 'العنوان' : 'Address'}</strong>
-                    <span>{isAr ? RESTAURANT_INFO.location_ar : RESTAURANT_INFO.location_en}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5 mb-2.5">
-                  <Clock size={16} className="text-[#c9a24b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#f7f4ea] block">{isAr ? 'أوقات العمل' : 'Opening Hours'}</strong>
-                    <span>{isAr ? 'يومياً من 9:00 صباحاً حتى 2:00 بعد منتصف الليل' : 'Daily from 9:00 AM to 2:00 AM'}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5">
-                  <Phone size={16} className="text-[#c9a24b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#f7f4ea] block">{isAr ? 'الحجز والاستفسار' : 'Reservations'}</strong>
-                    <span dir="ltr" className="font-mono text-[#dfbe6f]">+20 102 345 6789</span>
-                  </div>
-                </div>
-              </motion.div>
-            )}
           </motion.div>
         </motion.div>
       </div>

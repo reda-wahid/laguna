@@ -2,7 +2,7 @@ import { MENU_DATA as INITIAL_MENU_DATA, MainSection } from '../data/menuData';
 import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../firebase/config';
 
-const STORAGE_KEY = 'laguna_menu_data_v6';
+const STORAGE_KEY = 'laguna_menu_data_v8';
 const ADMIN_PIN_KEY = 'laguna_admin_auth_pin';
 let isSyncing = false;
 let lastServerTimestamp = 0;
